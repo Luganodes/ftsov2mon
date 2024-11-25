@@ -1,0 +1,46 @@
+name: Automated Release
+
+on:
+  push:
+    tags:
+      - 'v*'        # Triggers the workflow on tags starting with 'v'
+
+jobs:
+  build-and-release:
+    runs-on: ${{ matrix.os }}
+    permissions: write-all
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        target: [x86_64-unknown-linux-gnu]
+    steps:
+      - name: Check Out Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: ${{ matrix.target }}
+          override: true
+
+      - name: Build Project
+        run: cargo build --release --target ${{ matrix.target }}
+
+      - name: Archive Binaries
+        run: |
+          mkdir artifacts
+          cp target/${{ matrix.target }}/release/hypermon${{ steps.extension.outputs.value }} artifacts/
+
+      - name: Create GitHub Release
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: artifacts/*
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          body: |
+            Automated Linux release for tag ${{ github.ref_name }}.
+          draft: false
+          prerelease: false
