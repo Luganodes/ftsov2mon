@@ -45,17 +45,38 @@ curl localhost:6969/metrics
 
 Output format:
 ```
-# The current block on the RPC
+# Did the client register for this reward epoch?
+ftso_registered_for_this_epoch
+
+# The latest block from the RPC
 ftso_rpc_current_block
 
 # Is the RPC syncing?
 ftso_rpc_is_syncing
 
-# The Info URL being used
-ftso_info_url
+# The balance of the signing policy address
+ftso_signing_policy_balance
 
-# The RPC URL being used
+# Was a tx from the signing policy address found within the block window?
+ftso_signing_policy_tx_found
+
+# The balance of the submit address
+ftso_submit_balance
+
+# The balance of the submit signature address
+ftso_submit_signature_balance
+
+# Was a tx from the submit signature address found within the block window?
+ftso_submit_signature_tx_found
+
+# Was a tx from the submit address found within the block window?
+ftso_submit_tx_found
+
+# The ftso RPC URL being used
 ftso_rpc_url
+
+# The ftso block window
+ftso_search_window
 ```
 
 ## Todo
