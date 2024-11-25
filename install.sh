@@ -46,20 +46,20 @@ install_binary() {
 install_service() {
     echo "Installing service..."
 
-    cat <<EOF > $SERVICE_FILE
-    [Unit]
-    Description=FTSOv2 Monitoring Daemon
-    After=network.target
+cat <<EOF > $SERVICE_FILE
+[Unit]
+Description=FTSOv2 Monitoring Daemon
+After=network.target
 
-    [Service]
-    User=$USER
-    Type=simple
-    ExecStart=/usr/local/bin/ftsov2mon start --rpc-url=http://localhost:9650/ext/bc/C/rpc --block-window 3000 --submit-address= --submit-signature-address= --signing-policy-address=
-    Restart=never
+[Service]
+User=$USER
+Type=simple
+ExecStart=/usr/local/bin/ftsov2mon start --rpc-url=http://localhost:9650/ext/bc/C/rpc --block-window 3000 --submit-address= --submit-signature-address= --signing-policy-address=
+Restart=never
 
-    [Install]
-    WantedBy=multi-user.target
-    EOF
+[Install]
+WantedBy=multi-user.target
+EOF
 
     echo "Reloading systemd daemon"
     sudo systemctl daemon-reload
