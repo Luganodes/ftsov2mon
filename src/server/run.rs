@@ -58,7 +58,7 @@ async fn get_metrics(
     metrics.update_for_monitoring_data(&data).await?;
 
     let (encoder, mut buffer) = metrics.get_encoder_and_buffer()?;
-    let block_window_metric = format!("\n# HELP ftso_search_window The ftso block search window\n# TYPE ftso_search_window gauge\nftso_search_window '{}'\n", config.block_window).as_bytes().to_vec();
+    let block_window_metric = format!("\n# HELP ftso_search_window The ftso block search window\n# TYPE ftso_search_window gauge\nftso_search_window {}\n", config.block_window as f32).as_bytes().to_vec();
 
     buffer.extend(&block_window_metric);
 
