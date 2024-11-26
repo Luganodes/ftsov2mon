@@ -50,8 +50,6 @@ async fn get_metrics(
 ) -> Result<HttpResponse, MonError> {
     info!("Request to: {}", req.head().uri);
 
-    let rpc_url = rpc_client.rpc_url.clone();
-
     // Update from rpc
     metrics.update_for_rpc(&rpc_client.into_inner()).await?;
 
@@ -60,10 +58,8 @@ async fn get_metrics(
     metrics.update_for_monitoring_data(&data).await?;
 
     let (encoder, mut buffer) = metrics.get_encoder_and_buffer()?;
-    let rpc_url_metric = format!("\n# HELP ftso_rpc_url The ftso RPC URL being used\n# TYPE ftso_rpc_url gauge\nftso_rpc_url '{}'\n", rpc_url).as_bytes().to_vec();
     let block_window_metric = format!("\n# HELP ftso_search_window The ftso block search window\n# TYPE ftso_search_window gauge\nftso_search_window '{}'\n", config.block_window).as_bytes().to_vec();
 
-    buffer.extend(&rpc_url_metric);
     buffer.extend(&block_window_metric);
 
     Ok(HttpResponseBuilder::new(StatusCode::OK)

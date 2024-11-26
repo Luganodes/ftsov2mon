@@ -72,9 +72,6 @@ ftso_submit_signature_tx_found
 # Was a tx from the submit address found within the block window?
 ftso_submit_tx_found
 
-# The ftso RPC URL being used
-ftso_rpc_url
-
 # The ftso block window
 ftso_search_window
 ```
@@ -82,7 +79,6 @@ ftso_search_window
 ## Todo
 - [x] Add support for telegram notifications
 - [ ] Add the following metrics:
-    - [x] The current RPC url
     - [x] RPC syncing
     - [x] RPC latest block
     - [x] Reporting balance in metrics
