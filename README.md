@@ -88,4 +88,5 @@ ftso_search_window
     - [x] Reporting balance in metrics
     - [ ] Appropriate txs found for all given addresses in the given block window
     - [x] The given block window for searching
+    - [ ] Did the client register for this epoch?
 - [x] Create setup script for easy download and systemd service setup
