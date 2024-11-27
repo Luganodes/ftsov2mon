@@ -5,7 +5,7 @@ use tracing::error;
 #[tokio::main(flavor = "multi_thread", worker_threads = 5)]
 async fn main() -> anyhow::Result<()> {
     let subscriber = tracing_subscriber::fmt()
-        .with_line_number(true)
+        .with_line_number(false)
         .with_target(true)
         .with_ansi(true)
         .with_level(true)
